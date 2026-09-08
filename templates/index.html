@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Duelo de Garagem</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>🏁 Duelo de Garagem</h1>
+        <p class="subtitulo">
+            Conheça as máquinas que fazem parte do duelo.
+        </p>
+    </header>
+
+    <main class="lista-carros">
+
+        {% for carro in carros %}
+
+        <div class="carta">
+
+            <h2>{{ carro["nome"] }}</h2>
+
+            <p>
+                <strong>🏷️ Marca:</strong>
+                {{ carro["marca"] }}
+            </p>
+
+            <p>
+                <strong>⚡ Potência:</strong>
+                {{ carro["potencia"] }} cv
+            </p>
+
+            <p>
+                <strong>🏁 Velocidade máxima:</strong>
+                {{ carro["velocidade"] }} km/h
+            </p>
+
+            <p>
+                <strong>⏱️ 0 a 100 km/h:</strong>
+                {{ carro["zero_cem"] }} segundos
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </main>
+
+</body>
+
+</html>
