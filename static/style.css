@@ -52,3 +52,150 @@ header h1 {
 .carta p {
     margin: 12px 0;
 }
+
+.foto-carro {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.area-botao {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.botao-duelo {
+    display: inline-block;
+    background-color: #e63946;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.botao-duelo:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+}
+
+.resultado-duelo {
+    text-align: center;
+    background-color: #242424;
+    border: 2px solid #e63946;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 25px auto;
+    max-width: 600px;
+}
+
+.resultado-duelo h2 {
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Seleção de atributos do duelo */
+
+.area-botao select {
+    background-color: #242424;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.area-botao select:focus {
+    outline: none;
+    border-color: #e63946;
+}
+
+.area-botao label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Carta misteriosa do computador */
+
+.carta-misteriosa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 350px;
+    border: 2px dashed #e63946;
+}
+
+.simbolo-misterioso {
+    font-size: 90px;
+    margin-bottom: 20px;
+}
+
+.carta-misteriosa h2 {
+    color: #e63946;
+    font-size: 22px;
+}
+
+.carta-misteriosa p {
+    color: #bbbbbb;
+    font-size: 15px;
+}
+/* Apresentação da garagem */
+
+.apresentacao-garagem {
+    text-align: center;
+    margin: 30px auto 10px;
+    padding: 0 20px;
+}
+
+.apresentacao-garagem h2 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: white;
+}
+
+.apresentacao-garagem p {
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+/* Cores dos resultados do duelo */
+
+.resultado.vitoria {
+    border: 2px solid #22c55e;
+    background-color: #14291d;
+    color: #86efac;
+}
+
+.resultado.derrota {
+    border: 2px solid #ef4444;
+    background-color: #2b1717;
+    color: #fca5a5;
+}
+
+.resultado.empate {
+    border: 2px solid #eab308;
+    background-color: #292511;
+    color: #fde047;
+}
+/* Formatação da caixa de resultado */
+
+.resultado {
+    max-width: 600px;
+    width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    box-sizing: border-box;
+}

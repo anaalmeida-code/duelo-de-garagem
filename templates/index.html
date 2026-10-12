@@ -14,16 +14,46 @@
 
     <header>
         <h1>🏁 Duelo de Garagem</h1>
-        <p class="subtitulo">
-            Conheça as máquinas que fazem parte do duelo.
+      <p class="subtitulo">
+    Prepare-se para acelerar e desafiar a sorte!
+    Receba seu carro, escolha o melhor atributo
+    e descubra se você consegue vencer o computador.
+</p>
         </p>
     </header>
+    
+<div class="area-botao">
+    <a href="{{ url_for('duelo') }}" class="botao-duelo">
+        🏁 Iniciar Duelo
+    </a>
+</div>
 
+<section class="apresentacao-garagem">
+    <h2>🚘 Conheça a Garagem</h2>
+    <p>
+        Explore os carros disponíveis e descubra
+        as máquinas que podem aparecer nos duelos!
+    </p>
+</section>
     <main class="lista-carros">
 
         {% for carro in carros %}
 
         <div class="carta">
+            
+{% set fotos = {
+    "Ferrari": "ferrari.jpg",
+    "Lamborghini": "huracan.jpg",
+    "Porsche": "porshe911.jpg",
+    "McLaren": "mclaren.jpg",
+    "Chevrolet": "corvette.jpg"
+} %}
+
+<img
+    src="{{ url_for('static', filename='imagens/' ~ fotos[carro['marca']]) }}"
+    alt="{{ carro['nome'] }}"
+    class="foto-carro"
+    >
 
             <h2>{{ carro["nome"] }}</h2>
 

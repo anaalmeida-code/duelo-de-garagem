@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duelo de Garagem - Batalha</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>🏁 Duelo de Garagem</h1>
+        <p class="subtitulo">Dois carros, uma disputa!</p>
+    </header>
+
+    <main class="lista-carros">
+
+        {% set fotos = {
+            "Ferrari": "ferrari.jpg",
+            "Lamborghini": "huracan.jpg",
+            "Porsche": "porshe911.jpg",
+            "McLaren": "mclaren.jpg",
+            "Chevrolet": "corvette.jpg"
+        } %}
+
+        {% for carro in carros %}
+        {% if loop.index0 == 0 or resultado %}
+
+        <div class="carta">
+
+            <img
+                src="{{ url_for('static', filename='imagens/' ~ fotos[carro['marca']]) }}"
+                alt="{{ carro['nome'] }}"
+                class="foto-carro"
+            >
+
+            <h2>{{ carro["nome"] }}</h2>
+
+            <p>⚡ Potência: {{ carro["potencia"] }} cv</p>
+            <p>🏁 Velocidade máxima: {{ carro["velocidade"] }} km/h</p>
+            <p>⏱️ 0 a 100 km/h: {{ carro["zero_cem"] }} segundos</p>
+
+        </div>
+        {% else %}
+
+<div class="carta carta-misteriosa">
+    <div class="simbolo-misterioso">❓</div>
+
+    <h2>🔒 Carta do Computador</h2>
+
+    <p>O adversário está escondido!</p>
+    <p>Escolha um atributo para revelar a carta.</p>
+</div>
+
+{% endif %}
+
+        {% endfor %}
+
+    </main>
+    
+<section class="area-botao">
+
+    <h2>🏆 Escolha o atributo do duelo</h2>
+
+    <form action="{{ url_for('duelo') }}" method="GET">
+        
+<input type="hidden" name="carro1" value="{{ carros[0]['id'] }}">
+<input type="hidden" name="carro2" value="{{ carros[1]['id'] }}">
+
+
+        <label for="atributo">Qual atributo deseja comparar?</label>
+
+        <select name="atributo" id="atributo" required>
+            <option value="">Selecione um atributo</option>
+            <option value="potencia">⚡ Potência</option>
+            <option value="velocidade">🏁 Velocidade máxima</option>
+            <option value="zero_cem">⏱️ 0 a 100 km/h</option>
+        </select>
+
+        <button type="submit" class="botao-duelo">
+            🏆 Comparar carros
+        </button>
+
+    </form>
+
+</section>
+
+{% if resultado %}
+    <div class="resultado
+        {% if 'VOCÊ VENCEU' in resultado %}vitoria
+        {% elif 'VOCÊ PERDEU' in resultado %}derrota
+        {% else %}empate{% endif %}">
+
+        {{ resultado }}
+
+    </div>
+{% endif %}
+
+<div class="area-botao">
+    <a href="{{ url_for('duelo') }}" class="botao-duelo">
+        🔄 Novo Duelo
+    </a>
+</div>
+
+
+
+
+</body>
+</html>
