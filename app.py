@@ -1,82 +1,147 @@
+
 import sqlite3
-from flask import Flask, render_template, request
 import random
+from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = "duelo-garagem-chave-desenvolvimento"
+
+
+def buscar_carros():
+    conexao = sqlite3.connect("duelo_garagem.db")
+    conexao.row_factory = sqlite3.Row
+    carros = conexao.execute("SELECT * FROM carros").fetchall()
+    conexao.close()
+    return carros
+
 
 @app.route("/")
 def inicio():
-    conexao = sqlite3.connect("duelo_garagem.db")
-    conexao.row_factory = sqlite3.Row
-
-    carros = conexao.execute("SELECT * FROM carros").fetchall()
-
-    conexao.close()
-
+    carros = buscar_carros()
     return render_template("index.html", carros=carros)
+
+
+@app.route("/nova-partida")
+def nova_partida():
+    session.clear()
+
+    session["rodada"] = 1
+    session["vitorias_jogador"] = 0
+    session["vitorias_computador"] = 0
+    session["empates"] = 0
+    session["rodada_contabilizada"] = False
+    session["partida_finalizada"] = False
+
+    return redirect(url_for("duelo"))
+
+
+@app.route("/proxima-rodada")
+def proxima_rodada():
+    if "rodada" not in session:
+        return redirect(url_for("nova_partida"))
+
+    if session.get("partida_finalizada"):
+        return redirect(url_for("duelo"))
+
+    if not session.get("rodada_contabilizada"):
+        return redirect(url_for("duelo"))
+
+    if session["rodada"] < 5:
+        session["rodada"] += 1
+        session["rodada_contabilizada"] = False
+        session.pop("carros_rodada", None)
+        session.pop("resultado_rodada", None)
+        return redirect(url_for("duelo"))
+
+    session["partida_finalizada"] = True
+    return redirect(url_for("duelo"))
 
 
 @app.route("/duelo")
 def duelo():
-    conexao = sqlite3.connect("duelo_garagem.db")
-    conexao.row_factory = sqlite3.Row
+    if "rodada" not in session:
+        return redirect(url_for("nova_partida"))
 
-    todos_carros = conexao.execute(
-        "SELECT * FROM carros"
-    ).fetchall()
+    todos_carros = buscar_carros()
 
     if len(todos_carros) < 2:
-        conexao.close()
         return "É necessário ter pelo menos dois carros."
 
-    carro1_id = request.args.get("carro1", type=int)
-    carro2_id = request.args.get("carro2", type=int)
-    atributo = request.args.get("atributo")
+    if "carros_rodada" not in session:
+        sorteados = random.sample(todos_carros, 2)
+        session["carros_rodada"] = [
+            sorteados[0]["id"],
+            sorteados[1]["id"]
+        ]
 
+    ids = session["carros_rodada"]
+
+    carros = [
+        next((carro for carro in todos_carros if carro["id"] == id_carro), None)
+        for id_carro in ids
+    ]
+
+    if any(carro is None for carro in carros):
+        return "Um dos carros da rodada não foi encontrado.", 400
+
+    atributo = request.args.get("atributo")
     atributos_validos = ["potencia", "velocidade", "zero_cem"]
 
-    vencedor = None
-    resultado = None
+    resultado = session.get("resultado_rodada")
 
-    if carro1_id is not None and carro2_id is not None:
-        carros = conexao.execute(
-            "SELECT * FROM carros WHERE id IN (?, ?)",
-            (carro1_id, carro2_id)
-        ).fetchall()
-
-        if len(carros) != 2 or carro1_id == carro2_id:
-            conexao.close()
-            return "Carros inválidos para o duelo.", 400
-
-        carros = sorted(
-            carros,
-            key=lambda carro: 0 if carro["id"] == carro1_id else 1
-        )
-    else:
-        carros = random.sample(todos_carros, 2)
-
-    conexao.close()
-
-    if atributo in atributos_validos:
+    if (
+        atributo in atributos_validos
+        and not session["rodada_contabilizada"]
+        and not session["partida_finalizada"]
+    ):
         valor1 = carros[0][atributo]
         valor2 = carros[1][atributo]
 
         if valor1 == valor2:
             resultado = "Empate! Os dois carros têm o mesmo desempenho."
-        elif atributo == "zero_cem":
-            vencedor = carros[0] if valor1 < valor2 else carros[1]
+            session["empates"] += 1
+
+        elif (
+            (atributo == "zero_cem" and valor1 < valor2)
+            or (atributo != "zero_cem" and valor1 > valor2)
+        ):
+            resultado = f"🏆 {carros[0]['nome']} — VOCÊ VENCEU!"
+            session["vitorias_jogador"] += 1
+
         else:
-            vencedor = carros[0] if valor1 > valor2 else carros[1]
-        if vencedor is not None:
-            if vencedor["id"] == carros[0]["id"]:
-                resultado = f"🏆 {vencedor['nome']} — VOCÊ VENCEU!"
-            else:
-                resultado = f"💻 {vencedor['nome']} — VOCÊ PERDEU!"
+            resultado = f"💻 {carros[1]['nome']} — VOCÊ PERDEU!"
+            session["vitorias_computador"] += 1
+
+        session["resultado_rodada"] = resultado
+        session["rodada_contabilizada"] = True
+
+        return redirect(url_for("duelo"))
+
+    vitorias_jogador = session["vitorias_jogador"]
+    vitorias_computador = session["vitorias_computador"]
+    empates = session["empates"]
+
+    resultado_final = None
+
+    if session["partida_finalizada"]:
+        if vitorias_jogador > vitorias_computador:
+            resultado_final = "🏆 PARABÉNS! VOCÊ VENCEU A PARTIDA!"
+        elif vitorias_computador > vitorias_jogador:
+            resultado_final = "💻 O COMPUTADOR VENCEU A PARTIDA!"
+        else:
+            resultado_final = "🤝 A PARTIDA TERMINOU EMPATADA!"
 
     return render_template(
         "duelo.html",
         carros=carros,
-        resultado=resultado
+        resultado=resultado,
+        rodada=session["rodada"],
+        vitorias_jogador=vitorias_jogador,
+        vitorias_computador=vitorias_computador,
+        empates=empates,
+        rodada_contabilizada=session["rodada_contabilizada"],
+        partida_finalizada=session["partida_finalizada"],
+        resultado_final=resultado_final
     )
 
 

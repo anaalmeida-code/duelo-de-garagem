@@ -1,80 +1,99 @@
+
+/* ===================================== */
+/* ESTILO GERAL DO JOGO                  */
+/* ===================================== */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #111;
     color: white;
     margin: 0;
+    min-height: 100vh;
 }
-
-/* Cabeçalho */
 
 header {
     text-align: center;
-    padding: 40px 20px 25px;
+    padding: 18px 20px 14px;
     border-bottom: 1px solid #333;
 }
 
 header h1 {
-    font-size: 36px;
-    margin: 0 0 10px;
+    font-size: 30px;
+    margin: 0 0 5px;
 }
 
 .subtitulo {
     color: #aaa;
+    font-size: 14px;
     margin: 0;
 }
 
-/* Área dos carros */
+/* ===================================== */
+/* CARTAS DOS CARROS                     */
+/* ===================================== */
 
 .lista-carros {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
-    padding: 40px 20px;
+    gap: 24px;
+    padding: 18px 20px 8px;
 }
-
-/* Carta de cada carro */
 
 .carta {
     background-color: #1f1f1f;
     border: 1px solid #444;
     border-radius: 12px;
-    padding: 22px;
-    width: 250px;
+    padding: 18px;
+    width: 310px;
+    box-sizing: border-box;
 }
 
 .carta h2 {
-    margin-top: 0;
-    padding-bottom: 12px;
+    font-size: 21px;
+    margin: 0 0 10px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #444;
 }
 
 .carta p {
-    margin: 12px 0;
+    font-size: 15px;
+    margin: 9px 0;
 }
 
 .foto-carro {
     width: 100%;
-    height: 180px;
+    height: 170px;
     object-fit: cover;
     border-radius: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
+
+/* ===================================== */
+/* BOTÕES                                */
+/* ===================================== */
 
 .area-botao {
     text-align: center;
-    margin: 30px 0;
+    margin: 16px 0;
+}
+
+.area-botao h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
 }
 
 .botao-duelo {
     display: inline-block;
     background-color: #e63946;
     color: white;
-    padding: 15px 30px;
+    padding: 12px 25px;
     border-radius: 10px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
     transition: 0.3s;
 }
 
@@ -83,31 +102,18 @@ header h1 {
     transform: scale(1.05);
 }
 
-.resultado-duelo {
-    text-align: center;
-    background-color: #242424;
-    border: 2px solid #e63946;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 25px auto;
-    max-width: 600px;
-}
-
-.resultado-duelo h2 {
-    color: #ffffff;
-    margin: 0;
-}
-
-/* Seleção de atributos do duelo */
+/* ===================================== */
+/* SELEÇÃO DOS ATRIBUTOS                 */
+/* ===================================== */
 
 .area-botao select {
     background-color: #242424;
     color: white;
     border: 1px solid #555;
     border-radius: 10px;
-    padding: 15px;
-    font-size: 16px;
-    margin: 10px;
+    padding: 12px;
+    font-size: 15px;
+    margin: 6px;
     cursor: pointer;
 }
 
@@ -121,7 +127,9 @@ header h1 {
     font-weight: bold;
 }
 
-/* Carta misteriosa do computador */
+/* ===================================== */
+/* CARTA MISTERIOSA                      */
+/* ===================================== */
 
 .carta-misteriosa {
     display: flex;
@@ -129,44 +137,40 @@ header h1 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 350px;
+    min-height: 300px;
     border: 2px dashed #e63946;
 }
 
 .simbolo-misterioso {
-    font-size: 90px;
-    margin-bottom: 20px;
+    font-size: 80px;
+    margin-bottom: 12px;
 }
 
 .carta-misteriosa h2 {
     color: #e63946;
-    font-size: 22px;
+    font-size: 21px;
 }
 
 .carta-misteriosa p {
     color: #bbbbbb;
     font-size: 15px;
 }
-/* Apresentação da garagem */
 
-.apresentacao-garagem {
+/* ===================================== */
+/* RESULTADOS DO DUELO                   */
+/* ===================================== */
+
+.resultado {
+    max-width: 600px;
+    width: 90%;
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 12px;
     text-align: center;
-    margin: 30px auto 10px;
-    padding: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+    box-sizing: border-box;
 }
-
-.apresentacao-garagem h2 {
-    font-size: 28px;
-    margin-bottom: 12px;
-    color: white;
-}
-
-.apresentacao-garagem p {
-    font-size: 16px;
-    color: #aaa;
-    margin-bottom: 20px;
-}
-/* Cores dos resultados do duelo */
 
 .resultado.vitoria {
     border: 2px solid #22c55e;
@@ -185,17 +189,249 @@ header h1 {
     background-color: #292511;
     color: #fde047;
 }
-/* Formatação da caixa de resultado */
 
-.resultado {
-    max-width: 600px;
-    width: 90%;
-    margin: 30px auto;
-    padding: 20px;
+.resultado-final {
+    border: 2px solid #e63946;
+    background-color: #242424;
+    color: white;
+    margin: 25px auto;
+}
+
+/* ===================================== */
+/* AC3 - PAINEL E PLACAR                 */
+/* ===================================== */
+
+.painel-partida {
+    max-width: 720px;
+    margin: 16px auto 0;
+    padding: 14px 20px;
+    background-color: #1f1f1f;
+    border: 1px solid #444;
     border-radius: 12px;
     text-align: center;
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
     box-sizing: border-box;
+}
+
+.painel-partida h2 {
+    font-size: 22px;
+    margin: 0 0 12px;
+}
+
+.placar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.placar-item {
+    flex: 1;
+    background-color: #292929;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.placar-item h3 {
+    font-size: 15px;
+    color: #ddd;
+    margin: 0 0 6px;
+}
+
+.placar-item p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #e63946;
+    margin: 0;
+}
+
+/* ===================================== */
+/* PÁGINA INICIAL - GARAGEM              */
+/* ===================================== */
+
+.apresentacao-garagem {
+    text-align: center;
+    margin: 12px auto 0;
+    padding: 0 20px;
+}
+
+.apresentacao-garagem h2 {
+    font-size: 24px;
+    margin: 0 0 6px;
+}
+
+.apresentacao-garagem p {
+    font-size: 14px;
+    color: #aaa;
+    margin: 0;
+}
+
+/* Cinco carros lado a lado */
+
+.pagina-inicial header {
+    padding: 16px 20px 12px;
+}
+
+.pagina-inicial .area-botao {
+    margin: 14px 0;
+}
+
+.pagina-inicial .lista-carros {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 18px 20px;
+    gap: 14px;
+    box-sizing: border-box;
+}
+
+.pagina-inicial .carta {
+    width: auto;
+    min-width: 0;
+    padding: 12px;
+}
+
+.pagina-inicial .foto-carro {
+    height: 125px;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.pagina-inicial .carta h2 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.pagina-inicial .carta p {
+    font-size: 13px;
+    margin: 8px 0;
+}
+
+/* ===================================== */
+/* RESPONSIVIDADE                        */
+/* ===================================== */
+
+@media (max-width: 1100px) {
+    .pagina-inicial .lista-carros {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 750px) {
+    .painel-partida {
+        margin: 15px 12px 0;
+    }
+
+    .lista-carros {
+        gap: 12px;
+        padding: 15px 10px;
+    }
+
+    .carta {
+        width: min(100%, 310px);
+    }
+
+    .placar-item {
+        padding: 10px 5px;
+    }
+
+    .placar-item h3 {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 650px) {
+    .pagina-inicial .lista-carros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .pagina-inicial .foto-carro {
+        height: 100px;
+    }
+
+    .pagina-inicial .carta h2 {
+        font-size: 14px;
+    }
+
+    .pagina-inicial .carta p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .pagina-inicial .lista-carros {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================== */
+/* GARAGEM - ESPAÇAMENTO MAIS ELEGANTE    */
+/* ===================================== */
+
+@media (min-width: 1101px) {
+
+    .pagina-inicial header {
+        padding: 28px 20px 22px;
+    }
+
+    .pagina-inicial header h1 {
+        font-size: 34px;
+        margin-bottom: 12px;
+    }
+
+    .pagina-inicial .subtitulo {
+        font-size: 15px;
+    }
+
+    .pagina-inicial .area-botao {
+        margin: 28px 0 32px;
+    }
+
+    .pagina-inicial .botao-duelo {
+        padding: 15px 34px;
+        font-size: 17px;
+    }
+
+    .pagina-inicial .apresentacao-garagem {
+        margin: 0 auto 12px;
+    }
+
+    .pagina-inicial .apresentacao-garagem h2 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .pagina-inicial .apresentacao-garagem p {
+        font-size: 16px;
+    }
+
+    .pagina-inicial .lista-carros {
+        max-width: 1340px;
+        padding: 26px 20px 35px;
+        gap: 16px;
+    }
+
+    .pagina-inicial .carta {
+        padding: 14px;
+    }
+
+    .pagina-inicial .foto-carro {
+        height: 155px;
+        margin-bottom: 14px;
+    }
+
+    .pagina-inicial .carta h2 {
+        font-size: 18px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+    }
+
+    .pagina-inicial .carta p {
+        font-size: 13px;
+        margin: 11px 0;
+    }
 }
