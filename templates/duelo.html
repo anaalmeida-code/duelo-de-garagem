@@ -1,13 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duelo de Garagem - Batalha</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+
+<body class="pagina-duelo">
 
     <header>
         <h1>🏁 Duelo de Garagem</h1>
@@ -15,9 +19,11 @@
     </header>
 
     <section class="painel-partida">
+
         <h2>🏁 Rodada {{ rodada }} de 5</h2>
 
         <div class="placar">
+
             <div class="placar-item">
                 <h3>🏆 Você</h3>
                 <p>{{ vitorias_jogador }}</p>
@@ -32,80 +38,244 @@
                 <h3>🤝 Empates</h3>
                 <p>{{ empates }}</p>
             </div>
+
         </div>
+
     </section>
+
+    <!-- PROGRESSO DA PARTIDA -->
+
+    {% set rodadas_concluidas =
+        vitorias_jogador + vitorias_computador + empates %}
+
+    {% set porcentagem = rodadas_concluidas * 20 %}
+
+    <section class="progresso-partida">
+
+        <div class="progresso-cabecalho">
+            <h3>🏁 Progresso da corrida</h3>
+            <span>{{ porcentagem }}%</span>
+        </div>
+
+        <div class="progresso-etapas">
+
+            {% for etapa in range(1, 6) %}
+                <div class="progresso-etapa
+                    {% if etapa <= rodadas_concluidas %}concluida{% endif %}">
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="progresso-rodape">
+            <span>{{ rodadas_concluidas }} de 5 rodadas concluídas</span>
+            <span>🏁 Final</span>
+        </div>
+
+    </section>
+
+    <!-- TURNO -->
+
+    {% if not partida_finalizada %}
+
+        <section class="turno-duelo">
+
+            {% if vez_computador %}
+
+                <h2>💻 Vez do Computador!</h2>
+
+                {% if atributo_escolhido %}
+
+                    <p>
+                        O computador escolheu:
+                        <strong>
+                            {% if atributo_escolhido == "potencia" %}
+                                ⚡ Potência
+                            {% elif atributo_escolhido == "velocidade" %}
+                                🏁 Velocidade máxima
+                            {% else %}
+                                ⏱️ 0 a 100 km/h
+                            {% endif %}
+                        </strong>
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        Conheça seu carro e descubra
+                        qual atributo o computador vai escolher!
+                    </p>
+
+                {% endif %}
+
+            {% else %}
+
+                <h2>🏆 Sua vez de jogar!</h2>
+
+            {% endif %}
+
+        </section>
+
+    {% endif %}
+
+    <!-- CARTAS -->
 
     <main class="lista-carros">
 
         {% set fotos = {
-            "Ferrari": "ferrari.jpg",
-            "Lamborghini": "huracan.jpg",
-            "Porsche": "porshe911.jpg",
-            "McLaren": "mclaren.jpg",
-            "Chevrolet": "corvette.jpg"
+            "Ferrari 488 GTB": "ferrari.jpg",
+            "Lamborghini Huracán": "huracan.jpg",
+            "Porsche 911 Turbo S": "porshe911.jpg",
+            "McLaren 720S": "mclaren.jpg",
+            "Chevrolet Corvette C8": "corvette.jpg",
+            "Nissan GT-R R35": "nissangtr.jpg",
+            "Dodge Charger R/T 1970": "charger1970.jpg",
+            "Toyota Supra MK4": "supra.jpg",
+            "Nissan Skyline GT-R R34": "skyline.jpg",
+            "Mitsubishi Eclipse GSX": "eclipse.jpg"
         } %}
 
         {% for carro in carros %}
+
             {% if loop.index0 == 0 or rodada_contabilizada %}
 
-                <div class="carta">
+                {% set destaque = "" %}
+
+                {% if rodada_contabilizada %}
+
+                    {% if vencedor_rodada == "empate" %}
+                        {% set destaque = "carta-empate" %}
+
+                    {% elif vencedor_rodada == "jogador" %}
+
+                        {% if loop.index0 == 0 %}
+                            {% set destaque = "carta-vencedora" %}
+                        {% else %}
+                            {% set destaque = "carta-perdedora" %}
+                        {% endif %}
+
+                    {% elif vencedor_rodada == "computador" %}
+
+                        {% if loop.index0 == 1 %}
+                            {% set destaque = "carta-vencedora" %}
+                        {% else %}
+                            {% set destaque = "carta-perdedora" %}
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endif %}
+
+                <div class="carta {{ destaque }}">
+
                     <img
-                        src="{{ url_for('static', filename='imagens/' ~ fotos[carro['marca']]) }}"
+                        src="{{ url_for('static', filename='imagens/' ~ fotos.get(carro['nome'], 'corvette.jpg')) }}"
                         alt="{{ carro['nome'] }}"
                         class="foto-carro"
                     >
 
                     <h2>{{ carro["nome"] }}</h2>
 
-                    <p>⚡ Potência: {{ carro["potencia"] }} cv</p>
-                    <p>🏁 Velocidade máxima: {{ carro["velocidade"] }} km/h</p>
-                    <p>⏱️ 0 a 100 km/h: {{ carro["zero_cem"] }} segundos</p>
+                    <p>
+                        ⚡ Potência:
+                        {{ carro["potencia"] }} cv
+                    </p>
+
+                    <p>
+                        🏁 Velocidade máxima:
+                        {{ carro["velocidade"] }} km/h
+                    </p>
+
+                    <p>
+                        ⏱️ 0 a 100 km/h:
+                        {{ carro["zero_cem"] }} segundos
+                    </p>
+
                 </div>
 
             {% else %}
 
                 <div class="carta carta-misteriosa">
+
                     <div class="simbolo-misterioso">❓</div>
 
                     <h2>🔒 Carta do Computador</h2>
 
                     <p>O adversário está escondido!</p>
-                    <p>Escolha um atributo para revelar a carta.</p>
+
+                    <p>
+                        A carta será revelada
+                        após a jogada.
+                    </p>
+
                 </div>
 
             {% endif %}
+
         {% endfor %}
 
     </main>
 
+    <!-- AÇÕES -->
+
     {% if not rodada_contabilizada and not partida_finalizada %}
 
         <section class="area-botao">
-            <h2>🏆 Escolha o atributo do duelo</h2>
 
-            <form action="{{ url_for('duelo') }}" method="GET">
+            {% if vez_computador %}
 
-                <label for="atributo">
-                    Qual atributo deseja comparar?
-                </label>
+                <form action="{{ url_for('duelo') }}" method="POST">
 
-                <select name="atributo" id="atributo" required>
-                    <option value="">Selecione um atributo</option>
-                    <option value="potencia">⚡ Potência</option>
-                    <option value="velocidade">🏁 Velocidade máxima</option>
-                    <option value="zero_cem">⏱️ 0 a 100 km/h</option>
-                </select>
+                    <button type="submit" class="botao-duelo">
+                        💻 Jogada do Computador
+                    </button>
 
-                <button type="submit" class="botao-duelo">
-                    🏆 Comparar carros
-                </button>
+                </form>
 
-            </form>
+            {% else %}
+
+                <form action="{{ url_for('duelo') }}" method="POST">
+
+                    <label for="atributo">
+                        Escolha o atributo:
+                    </label>
+
+                    <select name="atributo" id="atributo" required>
+
+                        <option value="">
+                            Selecione um atributo
+                        </option>
+
+                        <option value="potencia">
+                            ⚡ Potência
+                        </option>
+
+                        <option value="velocidade">
+                            🏁 Velocidade máxima
+                        </option>
+
+                        <option value="zero_cem">
+                            ⏱️ 0 a 100 km/h
+                        </option>
+
+                    </select>
+
+                    <button type="submit" class="botao-duelo">
+                        🏆 Comparar Carros
+                    </button>
+
+                </form>
+
+            {% endif %}
+
         </section>
 
     {% endif %}
 
+    <!-- RESULTADO DA RODADA -->
+
     {% if resultado %}
+
         <div class="resultado
             {% if 'VOCÊ VENCEU' in resultado %}vitoria
             {% elif 'VOCÊ PERDEU' in resultado %}derrota
@@ -114,34 +284,99 @@
             {{ resultado }}
 
         </div>
+
     {% endif %}
 
     {% if rodada_contabilizada and not partida_finalizada %}
 
         <div class="area-botao">
-            <a href="{{ url_for('proxima_rodada') }}" class="botao-duelo">
+
+            <a href="{{ url_for('proxima_rodada') }}"
+               class="botao-duelo">
+
                 {% if rodada < 5 %}
                     ➡️ Próxima Rodada
                 {% else %}
                     🏁 Ver Resultado Final
                 {% endif %}
+
             </a>
+
         </div>
 
     {% endif %}
 
+    <!-- ENCERRAMENTO ANIMADO -->
+
     {% if partida_finalizada %}
 
-        <section class="area-botao">
-            <h2>🏁 Fim de Partida!</h2>
+        {% if vitorias_jogador > vitorias_computador %}
+            {% set tipo_final = "final-vitoria" %}
+        {% elif vitorias_computador > vitorias_jogador %}
+            {% set tipo_final = "final-derrota" %}
+        {% else %}
+            {% set tipo_final = "final-empate" %}
+        {% endif %}
+
+        <section class="encerramento {{ tipo_final }}">
+
+            {% if tipo_final == "final-vitoria" %}
+
+                <div class="animacao-final animacao-vitoria"
+                     aria-hidden="true">
+
+                    <span class="bandeira bandeira-esquerda">🏁</span>
+                    <span class="trofeu-animado">🏆</span>
+                    <span class="bandeira bandeira-direita">🏁</span>
+
+                    <div class="confetes">
+                        <span>🎉</span>
+                        <span>✨</span>
+                        <span>🎊</span>
+                        <span>✨</span>
+                        <span>🎉</span>
+                    </div>
+
+                </div>
+
+                <h2>🏆 FIM DE PARTIDA!</h2>
+
+            {% elif tipo_final == "final-derrota" %}
+
+                <div class="animacao-final animacao-derrota"
+                     aria-hidden="true">
+
+                    <span class="bandeira-passando">🏁</span>
+                    <span class="computador-animado">💻</span>
+
+                </div>
+
+                <h2>🏁 FIM DE PARTIDA!</h2>
+
+            {% else %}
+
+                <div class="animacao-final animacao-empate"
+                     aria-hidden="true">
+
+                    <span class="carro-esquerda">🏎️</span>
+                    <span class="empate-animado">🤝</span>
+                    <span class="carro-direita">🏎️</span>
+
+                </div>
+
+                <h2>🏁 FIM DE PARTIDA!</h2>
+
+            {% endif %}
 
             <div class="resultado resultado-final">
                 {{ resultado_final }}
             </div>
 
-            <a href="{{ url_for('nova_partida') }}" class="botao-duelo">
+            <a href="{{ url_for('nova_partida') }}"
+               class="botao-duelo">
                 🔄 Jogar Novamente
             </a>
+
         </section>
 
     {% endif %}
