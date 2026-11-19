@@ -41,11 +41,16 @@
     <main class="lista-carros">
 
         {% set fotos = {
-            "Ferrari": "ferrari.jpg",
-            "Lamborghini": "huracan.jpg",
-            "Porsche": "porshe911.jpg",
-            "McLaren": "mclaren.jpg",
-            "Chevrolet": "corvette.jpg"
+            "Ferrari 488 GTB": "ferrari.jpg",
+            "Lamborghini Huracán": "huracan.jpg",
+            "Porsche 911 Turbo S": "porshe911.jpg",
+            "McLaren 720S": "mclaren.jpg",
+            "Chevrolet Corvette C8": "corvette.jpg",
+            "Nissan GT-R R35": "nissangtr.jpg",
+            "Dodge Charger R/T 1970": "charger1970.jpg",
+            "Toyota Supra MK4": "supra.jpg",
+            "Nissan Skyline GT-R R34": "skyline.jpg",
+            "Mitsubishi Eclipse GSX": "eclipse.jpg"
         } %}
 
         {% for carro in carros %}
@@ -53,7 +58,7 @@
         <div class="carta">
 
             <img
-                src="{{ url_for('static', filename='imagens/' ~ fotos[carro['marca']]) }}"
+                src="{{ url_for('static', filename='imagens/' ~ fotos.get(carro['nome'], 'corvette.jpg')) }}"
                 alt="{{ carro['nome'] }}"
                 class="foto-carro"
             >
