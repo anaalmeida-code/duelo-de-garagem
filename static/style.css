@@ -1,19 +1,23 @@
 
 /* ===================================== */
-/* ESTILO GERAL DO JOGO                  */
+/* DUELO DE GARAGEM - ESTILO COMPLETO    */
 /* ===================================== */
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-family: Arial, sans-serif;
     background-color: #111;
-    color: white;
+    color: #fff;
     margin: 0;
     min-height: 100vh;
 }
 
 header {
     text-align: center;
-    padding: 18px 20px 14px;
+    padding: 14px 20px 10px;
     border-bottom: 1px solid #333;
 }
 
@@ -29,101 +33,85 @@ header h1 {
 }
 
 /* ===================================== */
-/* CARTAS DOS CARROS                     */
+/* CARTAS                                */
 /* ===================================== */
 
 .lista-carros {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 24px;
-    padding: 18px 20px 8px;
+    gap: 20px;
+    padding: 16px 20px;
 }
 
 .carta {
     background-color: #1f1f1f;
     border: 1px solid #444;
     border-radius: 12px;
-    padding: 18px;
+    padding: 15px;
     width: 310px;
-    box-sizing: border-box;
 }
 
 .carta h2 {
-    font-size: 21px;
+    font-size: 20px;
     margin: 0 0 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #444;
 }
 
 .carta p {
-    font-size: 15px;
-    margin: 9px 0;
+    font-size: 14px;
+    margin: 8px 0;
 }
 
 .foto-carro {
     width: 100%;
-    height: 170px;
+    height: 160px;
     object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 /* ===================================== */
-/* BOTÕES                                */
+/* BOTÕES E FORMULÁRIOS                  */
 /* ===================================== */
 
 .area-botao {
     text-align: center;
-    margin: 16px 0;
-}
-
-.area-botao h2 {
-    font-size: 20px;
-    margin-bottom: 12px;
+    margin: 12px auto;
 }
 
 .botao-duelo {
     display: inline-block;
     background-color: #e63946;
     color: white;
-    padding: 12px 25px;
+    padding: 12px 26px;
     border-radius: 10px;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .botao-duelo:hover {
     background-color: #b71c1c;
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
-
-/* ===================================== */
-/* SELEÇÃO DOS ATRIBUTOS                 */
-/* ===================================== */
 
 .area-botao select {
     background-color: #242424;
     color: white;
     border: 1px solid #555;
-    border-radius: 10px;
-    padding: 12px;
+    border-radius: 9px;
+    padding: 10px;
     font-size: 15px;
-    margin: 6px;
-    cursor: pointer;
-}
-
-.area-botao select:focus {
-    outline: none;
-    border-color: #e63946;
+    margin: 5px;
 }
 
 .area-botao label {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
 }
 
@@ -137,39 +125,35 @@ header h1 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 300px;
     border: 2px dashed #e63946;
 }
 
 .simbolo-misterioso {
-    font-size: 80px;
-    margin-bottom: 12px;
+    font-size: 65px;
+    margin-bottom: 10px;
 }
 
 .carta-misteriosa h2 {
     color: #e63946;
-    font-size: 21px;
 }
 
 .carta-misteriosa p {
-    color: #bbbbbb;
-    font-size: 15px;
+    color: #bbb;
 }
 
 /* ===================================== */
-/* RESULTADOS DO DUELO                   */
+/* RESULTADOS                            */
 /* ===================================== */
 
 .resultado {
-    max-width: 600px;
+    max-width: 700px;
     width: 90%;
-    margin: 15px auto;
-    padding: 15px;
+    margin: 10px auto;
+    padding: 12px;
     border-radius: 12px;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    box-sizing: border-box;
 }
 
 .resultado.vitoria {
@@ -194,27 +178,25 @@ header h1 {
     border: 2px solid #e63946;
     background-color: #242424;
     color: white;
-    margin: 25px auto;
 }
 
 /* ===================================== */
-/* AC3 - PAINEL E PLACAR                 */
+/* PLACAR                                */
 /* ===================================== */
 
 .painel-partida {
     max-width: 720px;
-    margin: 16px auto 0;
-    padding: 14px 20px;
+    margin: 10px auto 0;
+    padding: 10px 14px;
     background-color: #1f1f1f;
     border: 1px solid #444;
     border-radius: 12px;
     text-align: center;
-    box-sizing: border-box;
 }
 
 .painel-partida h2 {
-    font-size: 22px;
-    margin: 0 0 12px;
+    font-size: 21px;
+    margin: 0 0 8px;
 }
 
 .placar {
@@ -228,24 +210,84 @@ header h1 {
     background-color: #292929;
     border: 1px solid #555;
     border-radius: 10px;
-    padding: 10px 15px;
+    padding: 8px;
 }
 
 .placar-item h3 {
     font-size: 15px;
     color: #ddd;
-    margin: 0 0 6px;
+    margin: 0 0 4px;
 }
 
 .placar-item p {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
     color: #e63946;
     margin: 0;
 }
 
 /* ===================================== */
-/* PÁGINA INICIAL - GARAGEM              */
+/* PROGRESSO DA PARTIDA                  */
+/* ===================================== */
+
+.progresso-partida {
+    max-width: 720px;
+    margin: 7px auto 0;
+    padding: 9px 14px;
+    background: linear-gradient(135deg, #242424, #191919);
+    border: 1px solid #454545;
+    border-radius: 12px;
+}
+
+.progresso-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+}
+
+.progresso-cabecalho h3 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.progresso-cabecalho span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff5964;
+}
+
+.progresso-etapas {
+    display: flex;
+    gap: 7px;
+}
+
+.progresso-etapa {
+    flex: 1;
+    height: 11px;
+    background-color: #3b3b3b;
+    border-radius: 5px;
+    transition: background-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.progresso-etapa.concluida {
+    background: linear-gradient(90deg, #c91f2f, #ff4d5a);
+    box-shadow: 0 0 9px rgba(230, 57, 70, 0.35);
+}
+
+.progresso-rodape {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 6px;
+    color: #aaa;
+    font-size: 11px;
+}
+
+/* ===================================== */
+/* PÁGINA INICIAL - DEZ CARROS           */
 /* ===================================== */
 
 .apresentacao-garagem {
@@ -265,24 +307,17 @@ header h1 {
     margin: 0;
 }
 
-/* Cinco carros lado a lado */
-
-.pagina-inicial header {
-    padding: 16px 20px 12px;
-}
-
 .pagina-inicial .area-botao {
-    margin: 14px 0;
+    margin: 14px auto;
 }
 
 .pagina-inicial .lista-carros {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    max-width: 1320px;
+    max-width: 1340px;
     margin: 0 auto;
-    padding: 18px 20px;
     gap: 14px;
-    box-sizing: border-box;
+    padding: 18px 20px 30px;
 }
 
 .pagina-inicial .carta {
@@ -292,10 +327,8 @@ header h1 {
 }
 
 .pagina-inicial .foto-carro {
-    height: 125px;
-    width: 100%;
-    object-fit: cover;
-    margin-bottom: 10px;
+    height: 135px;
+    margin-bottom: 12px;
 }
 
 .pagina-inicial .carta h2 {
@@ -307,6 +340,439 @@ header h1 {
 .pagina-inicial .carta p {
     font-size: 13px;
     margin: 8px 0;
+    line-height: 1.4;
+}
+
+/* ===================================== */
+/* TELA DO DUELO                         */
+/* ===================================== */
+
+.pagina-duelo header {
+    padding: 8px 15px 6px;
+}
+
+.pagina-duelo header h1 {
+    font-size: 29px;
+    margin-bottom: 3px;
+}
+
+.pagina-duelo .subtitulo {
+    font-size: 14px;
+}
+
+.pagina-duelo .painel-partida {
+    max-width: 720px;
+    margin: 8px auto 0;
+    padding: 8px 12px;
+}
+
+.pagina-duelo .painel-partida h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.pagina-duelo .placar-item {
+    padding: 7px;
+}
+
+.pagina-duelo .placar-item h3 {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.pagina-duelo .placar-item p {
+    font-size: 27px;
+}
+
+.pagina-duelo .turno-duelo {
+    text-align: center;
+    margin: 7px auto 0;
+}
+
+.pagina-duelo .turno-duelo h2 {
+    font-size: 21px;
+    margin: 0 0 3px;
+}
+
+.pagina-duelo .turno-duelo p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.pagina-duelo .lista-carros {
+    gap: 20px;
+    padding: 8px 15px 3px;
+}
+
+.pagina-duelo .carta {
+    width: 340px;
+    padding: 12px;
+}
+
+.pagina-duelo .foto-carro {
+    height: 165px;
+    margin-bottom: 8px;
+}
+
+.pagina-duelo .carta h2 {
+    font-size: 20px;
+    margin-bottom: 7px;
+    padding-bottom: 7px;
+}
+
+.pagina-duelo .carta p {
+    font-size: 15px;
+    margin: 6px 0;
+}
+
+.pagina-duelo .carta-misteriosa {
+    min-height: 280px;
+}
+
+.pagina-duelo .simbolo-misterioso {
+    font-size: 65px;
+    margin-bottom: 8px;
+}
+
+.pagina-duelo .area-botao {
+    margin: 8px auto;
+}
+
+.pagina-duelo .area-botao h2 {
+    font-size: 19px;
+    margin: 0 0 6px;
+}
+
+.pagina-duelo .area-botao label {
+    font-size: 15px;
+}
+
+.pagina-duelo .area-botao select {
+    padding: 10px;
+    margin: 4px;
+}
+
+.pagina-duelo .botao-duelo {
+    padding: 11px 24px;
+    font-size: 15px;
+}
+
+.pagina-duelo .resultado {
+    margin: 7px auto;
+    padding: 10px;
+    font-size: 17px;
+}
+
+/* ===================================== */
+/* DESTAQUE DAS CARTAS                   */
+/* ===================================== */
+
+.pagina-duelo .carta-vencedora {
+    border: 2px solid #22c55e;
+    box-shadow: 0 0 16px rgba(34, 197, 94, 0.25);
+}
+
+.pagina-duelo .carta-perdedora {
+    border: 2px solid #ef4444;
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.20);
+}
+
+.pagina-duelo .carta-empate {
+    border: 2px solid #eab308;
+    box-shadow: 0 0 16px rgba(234, 179, 8, 0.25);
+}
+
+/* ===================================== */
+/* ENCERRAMENTO ANIMADO                  */
+/* ===================================== */
+
+.encerramento {
+    position: relative;
+    max-width: 720px;
+    margin: 7px auto 12px;
+    padding: 8px 12px 12px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    background: #1d1d1d;
+    text-align: center;
+    overflow: hidden;
+}
+
+.encerramento h2 {
+    font-size: 19px;
+    margin: 2px 0 7px;
+}
+
+.encerramento .resultado-final {
+    width: 100%;
+    max-width: none;
+    margin: 6px auto 10px;
+    font-size: 16px;
+}
+
+.encerramento .botao-duelo {
+    margin: 0 auto;
+}
+
+.animacao-final {
+    position: relative;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    overflow: hidden;
+}
+
+.animacao-final > span {
+    display: inline-block;
+    font-size: 34px;
+    line-height: 1;
+}
+
+/* VITÓRIA */
+
+.final-vitoria {
+    border-color: #22c55e;
+    background: linear-gradient(135deg, #17271d, #1b1b1b);
+}
+
+.final-vitoria .resultado-final {
+    border-color: #22c55e;
+    background: #14291d;
+    color: #86efac;
+}
+
+.bandeira {
+    transform-origin: center bottom;
+}
+
+.bandeira-esquerda {
+    animation: agitarEsquerda 0.8s ease-in-out infinite alternate;
+}
+
+.bandeira-direita {
+    animation: agitarDireita 0.8s ease-in-out infinite alternate;
+}
+
+.trofeu-animado {
+    animation: entradaTrofeu 0.8s ease-out both,
+               brilhoTrofeu 2s ease-in-out 0.8s infinite;
+}
+
+.confetes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.confetes span {
+    position: absolute;
+    top: -25px;
+    font-size: 20px;
+    animation: cairConfete 2.8s linear infinite;
+}
+
+.confetes span:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.confetes span:nth-child(2) {
+    left: 28%;
+    animation-delay: 0.7s;
+}
+
+.confetes span:nth-child(3) {
+    left: 65%;
+    animation-delay: 1.3s;
+}
+
+.confetes span:nth-child(4) {
+    left: 82%;
+    animation-delay: 0.4s;
+}
+
+.confetes span:nth-child(5) {
+    left: 93%;
+    animation-delay: 1.8s;
+}
+
+/* DERROTA */
+
+.final-derrota {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, #301919, #1b1b1b);
+    animation: entradaDerrota 0.8s ease-out both;
+}
+
+.final-derrota .resultado-final {
+    border-color: #ef4444;
+    background: #2b1717;
+    color: #fca5a5;
+}
+
+.bandeira-passando {
+    position: absolute;
+    left: 0;
+    animation: bandeiraCruzando 2.4s ease-in-out infinite;
+}
+
+.computador-animado {
+    animation: pulsoComputador 1.8s ease-in-out infinite;
+}
+
+/* EMPATE */
+
+.final-empate {
+    border-color: #eab308;
+    background: linear-gradient(135deg, #292511, #1b1b1b);
+}
+
+.final-empate .resultado-final {
+    border-color: #eab308;
+    background: #292511;
+    color: #fde047;
+}
+
+.carro-esquerda {
+    animation: chegadaEsquerda 1.3s ease-out both;
+}
+
+.carro-direita {
+    animation: chegadaDireita 1.3s ease-out both;
+}
+
+.empate-animado {
+    animation: brilhoEmpate 1.6s ease-in-out infinite;
+}
+
+/* ===================================== */
+/* MOVIMENTOS DAS ANIMAÇÕES              */
+/* ===================================== */
+
+@keyframes agitarEsquerda {
+    from {
+        transform: rotate(-18deg);
+    }
+    to {
+        transform: rotate(16deg);
+    }
+}
+
+@keyframes agitarDireita {
+    from {
+        transform: rotate(18deg);
+    }
+    to {
+        transform: rotate(-16deg);
+    }
+}
+
+@keyframes entradaTrofeu {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes brilhoTrofeu {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes cairConfete {
+    from {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    to {
+        transform: translateY(90px) rotate(300deg);
+        opacity: 0;
+    }
+}
+
+@keyframes entradaDerrota {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+        box-shadow: 0 0 28px rgba(239, 68, 68, 0.4);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+@keyframes bandeiraCruzando {
+    0% {
+        left: -10%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes pulsoComputador {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.16);
+    }
+}
+
+@keyframes chegadaEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-90px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes chegadaDireita {
+    from {
+        opacity: 0;
+        transform: translateX(90px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes brilhoEmpate {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.18);
+        opacity: 1;
+    }
 }
 
 /* ===================================== */
@@ -320,25 +786,19 @@ header h1 {
 }
 
 @media (max-width: 750px) {
-    .painel-partida {
-        margin: 15px 12px 0;
+    .pagina-duelo .painel-partida,
+    .pagina-duelo .progresso-partida,
+    .pagina-duelo .encerramento {
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
-    .lista-carros {
+    .pagina-duelo .lista-carros {
         gap: 12px;
-        padding: 15px 10px;
     }
 
-    .carta {
-        width: min(100%, 310px);
-    }
-
-    .placar-item {
-        padding: 10px 5px;
-    }
-
-    .placar-item h3 {
-        font-size: 12px;
+    .pagina-duelo .carta {
+        width: min(100%, 340px);
     }
 }
 
@@ -360,6 +820,14 @@ header h1 {
     .pagina-inicial .carta p {
         font-size: 12px;
     }
+
+    .encerramento h2 {
+        font-size: 17px;
+    }
+
+    .encerramento .resultado-final {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 380px) {
@@ -368,70 +836,9 @@ header h1 {
     }
 }
 
-/* ===================================== */
-/* GARAGEM - ESPAÇAMENTO MAIS ELEGANTE    */
-/* ===================================== */
-
-@media (min-width: 1101px) {
-
-    .pagina-inicial header {
-        padding: 28px 20px 22px;
-    }
-
-    .pagina-inicial header h1 {
-        font-size: 34px;
-        margin-bottom: 12px;
-    }
-
-    .pagina-inicial .subtitulo {
-        font-size: 15px;
-    }
-
-    .pagina-inicial .area-botao {
-        margin: 28px 0 32px;
-    }
-
-    .pagina-inicial .botao-duelo {
-        padding: 15px 34px;
-        font-size: 17px;
-    }
-
-    .pagina-inicial .apresentacao-garagem {
-        margin: 0 auto 12px;
-    }
-
-    .pagina-inicial .apresentacao-garagem h2 {
-        font-size: 28px;
-        margin-bottom: 12px;
-    }
-
-    .pagina-inicial .apresentacao-garagem p {
-        font-size: 16px;
-    }
-
-    .pagina-inicial .lista-carros {
-        max-width: 1340px;
-        padding: 26px 20px 35px;
-        gap: 16px;
-    }
-
-    .pagina-inicial .carta {
-        padding: 14px;
-    }
-
-    .pagina-inicial .foto-carro {
-        height: 155px;
-        margin-bottom: 14px;
-    }
-
-    .pagina-inicial .carta h2 {
-        font-size: 18px;
-        margin-bottom: 14px;
-        padding-bottom: 12px;
-    }
-
-    .pagina-inicial .carta p {
-        font-size: 13px;
-        margin: 11px 0;
+@media (prefers-reduced-motion: reduce) {
+    .encerramento *,
+    .encerramento {
+        animation: none !important;
     }
 }
