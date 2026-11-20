@@ -1,10 +1,16 @@
 
+import os
 import sqlite3
 import random
 from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = "duelo-garagem-chave-desenvolvimento"
+
+# Chave de segurança: usa a variável configurada no Render
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "duelo-garagem-chave-desenvolvimento"
+)
 
 
 def buscar_carros():
@@ -204,4 +210,8 @@ def duelo():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=False
+    )
